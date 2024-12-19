@@ -2,7 +2,7 @@ group 'co.doneservices.callkeep'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.22'
+    ext.kotlin_version = '1.8.0'
     repositories {
         google()
         mavenCentral()
@@ -37,8 +37,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'proguard-rules.pro'
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8  // or JavaVersion.VERSION_11 if using Java 11
+        targetCompatibility = JavaVersion.VERSION_1_8  // same as JavaVersion.VERSION_11 if using Java 11
+    }
     lintOptions {
         disable 'InvalidPackage'
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
