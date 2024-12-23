@@ -14,10 +14,10 @@ class CallKeepConfig {
   final String Function(String argument)? contentTitle;
 
   /// Text Accept to be shown for the user to accept the call
-  final String acceptText;
+  final String? acceptText;
 
   /// Text Decline to be shown for the user to decline the call
-  final String declineText;
+  final String? declineText;
 
   /// Text Missed Call to be shown for the user to indicate a missed call
   final String missedCallText;
@@ -42,8 +42,8 @@ class CallKeepConfig {
     required this.ios,
     required this.android,
     this.contentTitle,
-    this.acceptText = 'Accept',
-    this.declineText = 'Decline',
+    this.acceptText, 
+    this.declineText,
     this.missedCallText = 'Missed call',
     this.callBackText = 'Call back',
     this.avatar,

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_callkeep/flutter_callkeep.dart';
 import 'package:flutter_callkeep_example/app_router.dart';
+import 'package:flutter_callkeep_example/main.dart';
 import 'package:flutter_callkeep_example/navigation_service.dart';
 import 'package:uuid/uuid.dart';
 
@@ -118,7 +119,7 @@ class HomePageState extends State<HomePage> {
         hasVideo: true,
         extra: <String, dynamic>{'userId': '1a2b3c4d'},
       );
-
+      configureCallkeep();
       await CallKeep.instance.displayIncomingCall(data, context: context);
     });
   }
@@ -196,8 +197,7 @@ class HomePageState extends State<HomePage> {
       },
       onCallAccepted: (event) {
         print('call answered: ${event.toMap()}');
-        NavigationService.instance
-            .pushNamedIfNotCurrent(AppRoute.callingPage, args: event.toMap());
+        NavigationService.instance.pushNamedIfNotCurrent(AppRoute.callingPage, args: event.toMap());
         if (callback != null) callback.call(event, "accepted");
       },
       onCallDeclined: (event) async {

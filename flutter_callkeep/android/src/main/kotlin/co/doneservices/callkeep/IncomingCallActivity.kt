@@ -44,6 +44,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import android.text.TextUtils
+import android.util.Log
 import co.doneservices.callkeep.CallKeepBroadcastReceiver.Companion.EXTRA_CALLKEEP_ACCEPT_TEXT
 import co.doneservices.callkeep.CallKeepBroadcastReceiver.Companion.EXTRA_CALLKEEP_DECLINE_TEXT
 
@@ -185,6 +186,17 @@ class IncomingCallActivity : Activity() {
         if (hasVideo) {
             val top = getResources().getDrawable(R.drawable.ic_video);
             btnAnswer.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+
+        }else{
+            val top = getResources().getDrawable(R.drawable.ic_accept);
+            btnAnswer.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+        }
+        val declineCenter = getResources().getDrawable(R.drawable.ic_decline);
+        btnDecline.setCompoundDrawablesWithIntrinsicBounds(null, declineCenter, null, null);
+
+        val declineText = data?.getString(EXTRA_CALLKEEP_DECLINE_TEXT, null)
+        if (!declineText.isNullOrEmpty()) {
+            btnAnswer.text = declineText
         }
         val duration = data?.getLong(EXTRA_CALLKEEP_DURATION, 0L) ?: 0L
         wakeLockRequest(duration)
@@ -192,6 +204,8 @@ class IncomingCallActivity : Activity() {
         finishTimeout(data, duration)
 
         val accentColor = data?.getString(EXTRA_CALLKEEP_ACCENT_COLOR, "#0955fa")
+
+        Log.d("IncomingCallActivity", "Accent color: $accentColor")
         try {
             llBackground.setBackgroundColor(Color.parseColor(accentColor))
         } catch (error: Exception) {

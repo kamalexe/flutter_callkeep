@@ -19,8 +19,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void configureCallkeep() {
   final config = CallKeepConfig(
     appName: 'CallKeep',
-    acceptText: 'Accept',
-    declineText: 'Decline',
     missedCallText: 'Missed call',
     callBackText: 'Call back',
     android: CallKeepAndroidConfig(
@@ -28,7 +26,7 @@ void configureCallkeep() {
       showCallBackAction: true,
       showMissedCallNotification: true,
       ringtoneFileName: 'system_ringtone_default',
-      accentColor: '#0955fa',
+      accentColor: '#4c1130',
       backgroundUrl: 'assets/test.png',
       incomingCallNotificationChannelName: 'Incoming Calls',
       missedCallNotificationChannelName: 'Missed Calls',
