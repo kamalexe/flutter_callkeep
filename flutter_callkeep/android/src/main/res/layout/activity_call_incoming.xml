@@ -1,75 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:duplicateParentState="true"
+    android:fadeScrollbars="true"
+    android:focusableInTouchMode="false"
+    android:hapticFeedbackEnabled="true">
 
     <LinearLayout
         android:id="@+id/llBackground"
-        android:paddingBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/incoming_call_bg_color"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:paddingBottom="50dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageView2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/CircularImageView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
             android:id="@+id/tvCallerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="108dp"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/prompt"
             android:gravity="center"
-            android:text="Förnamn Efternamn"
-            android:textAppearance="@android:style/TextAppearance.Material.Display1"
-            android:textColor="@android:color/white" />
+            android:lineSpacingExtra="6dp"
+            android:maxLines="1"
+            android:text="Kamal Maurya"
+            android:textAlignment="center"
+            android:textColor="#231F1F"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvCallHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:fontFamily="@font/prompt"
             android:gravity="center"
+            android:lineSpacingExtra="4dp"
             android:text="@string/call_header"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium"
-            android:textColor="@android:color/white" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#74797E"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_logo"
-        android:visibility="invisible"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        />
+        android:src="@drawable/ic_logo"
+        android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/btnAnswer"
-        android:layout_width="120dp"
-        android:layout_height="70dp"
-        android:background="@drawable/answer_background"
-        android:drawableTop="@drawable/ic_accept"
-        android:paddingTop="10dp"
+    <LinearLayout
+        android:id="@+id/llAccept"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="54dp"
         android:layout_marginBottom="60dp"
-        android:text="@string/accept_text"
-        android:textColor="#fff"
-        />
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnDecline"
-        android:layout_width="120dp"
-        android:layout_height="70dp"
-        android:background="@drawable/decline_background"
-        android:drawableTop="@drawable/ic_decline"
-        android:paddingTop="10dp"
+        <Button
+            android:id="@+id/btnAnswer"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:background="@drawable/answer_background"
+            android:drawableTop="@drawable/ic_accept"
+            android:paddingTop="28dp"
+            android:textColor="#fff"
+            android:textSize="0sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/prompt"
+            android:gravity="center"
+            android:text="Accept"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llDecline"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="45dp"
-        android:text="@string/decline_text"
-        android:textColor="#fff"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="54dp"
         android:layout_marginBottom="60dp"
-        />
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnDecline"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:background="@drawable/decline_background"
+            android:drawableTop="@drawable/ic_decline"
+            android:paddingTop="28dp"
+            android:textColor="#fff"
+            android:textSize="0sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/prompt"
+            android:gravity="center"
+            android:text="Decline"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+    </LinearLayout>
 </RelativeLayout>

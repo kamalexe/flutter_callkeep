@@ -3,8 +3,7 @@ package co.doneservices.callkeep
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.KeyguardManager
-import android.app.KeyguardManager.KeyguardLock
-import android.app.PendingIntent
+
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -15,7 +14,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
@@ -40,13 +38,15 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlin.math.abs
 import okhttp3.OkHttpClient
 import com.squareup.picasso.OkHttp3Downloader
-import android.view.ViewGroup.MarginLayoutParams
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import android.text.TextUtils
 import android.util.Log
 import co.doneservices.callkeep.CallKeepBroadcastReceiver.Companion.EXTRA_CALLKEEP_ACCEPT_TEXT
 import co.doneservices.callkeep.CallKeepBroadcastReceiver.Companion.EXTRA_CALLKEEP_DECLINE_TEXT
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 
 
 class IncomingCallActivity : Activity() {
@@ -170,6 +170,7 @@ class IncomingCallActivity : Activity() {
         val data = intent.extras?.getBundle(EXTRA_CALLKEEP_INCOMING_DATA)
         if (data == null) finish()
 
+
         tvCallerName.text = data?.getString(EXTRA_CALLKEEP_CALLER_NAME, "")
         tvCallHeader.text = data?.getString(EXTRA_CALLKEEP_CONTENT_TITLE, "")
 
@@ -194,23 +195,35 @@ class IncomingCallActivity : Activity() {
         val declineCenter = getResources().getDrawable(R.drawable.ic_decline);
         btnDecline.setCompoundDrawablesWithIntrinsicBounds(null, declineCenter, null, null);
 
+        val acceptText = data?.getString(EXTRA_CALLKEEP_ACCEPT_TEXT, null)
+        if (!acceptText.isNullOrEmpty()) {
+            btnAnswer.text = acceptText
+        }
         val declineText = data?.getString(EXTRA_CALLKEEP_DECLINE_TEXT, null)
         if (!declineText.isNullOrEmpty()) {
-            btnAnswer.text = declineText
+            btnDecline.text = declineText
         }
         val duration = data?.getLong(EXTRA_CALLKEEP_DURATION, 0L) ?: 0L
+        val avatarBase64 = data?.getString(EXTRA_CALLKEEP_AVATAR,)
+        val imageView = findViewById<ImageView>(R.id.imageView2)
+        avatarBase64?.let { setBase64Image(imageView, it) }
         wakeLockRequest(duration)
-
         finishTimeout(data, duration)
-
         val accentColor = data?.getString(EXTRA_CALLKEEP_ACCENT_COLOR, "#0955fa")
-
-        Log.d("IncomingCallActivity", "Accent color: $accentColor")
         try {
             llBackground.setBackgroundColor(Color.parseColor(accentColor))
         } catch (error: Exception) {
         }
-
+    }
+    fun setBase64Image(imageView: ImageView, base64String: String) {
+        try {
+            val cleanBase64 = base64String.substringAfter("base64,")
+            val decodedBytes = Base64.decode(cleanBase64, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+            imageView.setImageBitmap(bitmap)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun finishTimeout(data: Bundle?, duration: Long) {

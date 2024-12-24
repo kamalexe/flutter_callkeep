@@ -5,5 +5,5 @@
     <string name="decline_text">Decline</string>
     <string name="text_missed_call">Missed call</string>
     <string name="text_call_back">Call back</string>
-    <string name="call_header">Call from CallKeep</string>
+    <string name="call_header">Calling</string>
 </resources>

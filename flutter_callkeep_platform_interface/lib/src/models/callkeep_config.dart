@@ -25,8 +25,8 @@ class CallKeepConfig {
   /// Text Call Back to be shown for the user to call back after a missed call
   final String callBackText;
 
-  /// Avatar's URL used for display for incoming calls on Android.
-  final String? avatar;
+  /// Avatar's URL used for display for incoming calls on Android. in base64
+  final String avatar;
 
   /// Any data for custom header avatar/background image.
   final Map<String, dynamic>? headers;
@@ -46,7 +46,7 @@ class CallKeepConfig {
     this.declineText,
     this.missedCallText = 'Missed call',
     this.callBackText = 'Call back',
-    this.avatar,
+    required this.avatar,
     this.headers,
   });
 
@@ -58,7 +58,7 @@ class CallKeepConfig {
       'declineText': declineText,
       'missedCallText': missedCallText,
       'callBackText': callBackText,
-      if (avatar != null) 'avatar': avatar,
+      'avatar': avatar,
       if (headers != null) 'headers': headers ?? {},
       'ios': ios.toMap(),
       'android': android.toMap(),

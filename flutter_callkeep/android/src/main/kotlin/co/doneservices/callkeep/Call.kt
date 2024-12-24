@@ -132,20 +132,10 @@ data class Data(val args: Map<String, Any?>) {
                 backgroundUrl
         )
         bundle.putString(CallKeepBroadcastReceiver.EXTRA_CALLKEEP_ACCENT_COLOR, accentColor)
-        Log.d("Data", "In bundle Accent color: $accentColor")
         bundle.putString(CallKeepBroadcastReceiver.EXTRA_CALLKEEP_ACTION_FROM, from)
-        bundle.putBoolean(
-                CallKeepBroadcastReceiver.EXTRA_CALLKEEP_SHOW_MISSED_CALL_NOTIFICATION,
-                showMissedCallNotification
-        )
-        bundle.putString(
-            CallKeepBroadcastReceiver.EXTRA_CALLKEEP_INCOMING_CALL_NOTIFICATION_CHANNEL_NAME,
-            incomingCallNotificationChannelName
-        )
-        bundle.putString(
-            CallKeepBroadcastReceiver.EXTRA_CALLKEEP_MISSED_CALL_NOTIFICATION_CHANNEL_NAME,
-            missedCallNotificationChannelName
-        )
+        bundle.putBoolean(CallKeepBroadcastReceiver.EXTRA_CALLKEEP_SHOW_MISSED_CALL_NOTIFICATION,showMissedCallNotification)
+        bundle.putString(CallKeepBroadcastReceiver.EXTRA_CALLKEEP_INCOMING_CALL_NOTIFICATION_CHANNEL_NAME,incomingCallNotificationChannelName)
+        bundle.putString(CallKeepBroadcastReceiver.EXTRA_CALLKEEP_MISSED_CALL_NOTIFICATION_CHANNEL_NAME,missedCallNotificationChannelName)
         return bundle
     }
 
