@@ -1,0 +1,37 @@
+name: flutter_callkeep
+description: iOS CallKit and Android ConnectionService bindings for Flutter
+version: 0.3.4
+homepage: https://github.com/doneservices/flutter_callkeep
+publish_to: none
+
+# To avoid publishing errors
+false_secrets:
+  - /example/**
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: '>=3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+<<<<<<< HEAD:flutter_callkeep/pubspec.yaml
+  flutter_callkeep_platform_interface:
+    path: ../flutter_callkeep_platform_interface/
+  flutter_web_plugins:
+    sdk: flutter
+=======
+>>>>>>> parent of d6beafa (Merge pull request #68 from doneservices/refactor/add-web-platform-and-refactor-API):pubspec.yaml
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: co.doneservices.callkeep
+        pluginClass: CallKeepPlugin
+      ios:
+        pluginClass: CallKeepPlugin
