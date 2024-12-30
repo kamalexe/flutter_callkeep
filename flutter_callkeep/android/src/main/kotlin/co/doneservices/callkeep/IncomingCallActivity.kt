@@ -44,6 +44,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import android.text.TextUtils
+import android.util.Log
 import co.doneservices.callkeep.CallKeepBroadcastReceiver.Companion.EXTRA_CALLKEEP_ACCEPT_TEXT
 import co.doneservices.callkeep.CallKeepBroadcastReceiver.Companion.EXTRA_CALLKEEP_DECLINE_TEXT
 
@@ -229,6 +230,7 @@ class IncomingCallActivity : Activity() {
         animateAcceptCall()
 
         btnAnswer.setOnClickListener {
+            Log.d("accept_btnAnswer","Answer _accept In Android")
             onAcceptClick()
         }
         btnDecline.setOnClickListener {
@@ -244,27 +246,50 @@ class IncomingCallActivity : Activity() {
 
 
     private fun onAcceptClick() {
+        Log.d("DEBUG onAcceptClick", "onAcceptClick called")
+
         val data = intent.extras?.getBundle(EXTRA_CALLKEEP_INCOMING_DATA)
+        Log.d("DEBUG onAcceptClick", "Extracted data: $data")
+
         val intent = packageManager.getLaunchIntentForPackage(packageName)?.cloneFilter()
+        Log.d("DEBUG onAcceptClick", "Created intent: $intent")
+
         if (isTaskRoot) {
             intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            Log.d("DEBUG onAcceptClick", "Added flags: FLAG_ACTIVITY_NEW_TASK and FLAG_ACTIVITY_CLEAR_TASK")
         } else {
             intent?.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            Log.d("DEBUG onAcceptClick", "Added flags: FLAG_ACTIVITY_SINGLE_TOP and FLAG_ACTIVITY_CLEAR_TOP")
         }
+
         if (intent != null) {
+            Log.d("DEBUG onAcceptClick", "Intent is not null, preparing TransparentActivity intent")
             val intentTransparent = TransparentActivity.getIntentAccept(this@IncomingCallActivity, data)
+            Log.d("DEBUG onAcceptClick", "Created TransparentActivity intent: $intentTransparent")
+
             startActivities(arrayOf(intent, intentTransparent))
+            Log.d("DEBUG onAcceptClick", "Started activities with intent array")
         } else {
+            Log.d("DEBUG onAcceptClick", "Intent is null, sending broadcast")
             val acceptIntent = CallKeepBroadcastReceiver.getIntentAccept(this@IncomingCallActivity, data)
+            Log.d("DEBUG onAcceptClick", "Created accept broadcast intent: $acceptIntent")
+
             sendBroadcast(acceptIntent)
+            Log.d("DEBUG onAcceptClick", "Broadcast sent")
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.d("DEBUG onAcceptClick", "Build version >= O, dismissing keyguard")
             val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
             keyguardManager.requestDismissKeyguard(this, null)
+            Log.d("DEBUG onAcceptClick", "Keyguard dismissed")
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Log.d("DEBUG onAcceptClick", "Build version >= LOLLIPOP, finishing activity and removing task")
             finishAndRemoveTask()
         } else {
+            Log.d("DEBUG onAcceptClick", "Build version < LOLLIPOP, finishing activity")
             finish()
         }
     }

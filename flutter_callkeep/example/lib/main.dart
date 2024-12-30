@@ -99,7 +99,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     //check current call from pushkit if possible
     var calls = await CallKeep.instance.activeCalls();
     if (calls.isNotEmpty) {
-      print('DATA: $calls');
+      print('Flutter_DATA: $calls');
       _currentUuid = calls[0].uuid;
       return calls[0];
     } else {
@@ -144,8 +144,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _firebaseMessaging.requestPermission();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print(
-          'Message title: ${message.notification?.title}, body: ${message.notification?.body}, data: ${message.data}');
+      print('Message title: ${message.notification?.title}, body: ${message.notification?.body}, data: ${message.data}');
       _currentUuid = _uuid.v4();
       displayIncomingCall(_currentUuid!);
     });
@@ -161,9 +160,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       onGenerateRoute: AppRoute.generateRoute,
       initialRoute: AppRoute.homePage,
       navigatorKey: NavigationService.instance.navigationKey,
-      navigatorObservers: <NavigatorObserver>[
-        NavigationService.instance.routeObserver
-      ],
+      navigatorObservers: <NavigatorObserver>[NavigationService.instance.routeObserver],
     );
   }
 
